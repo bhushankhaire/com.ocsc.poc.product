@@ -12,7 +12,6 @@ import org.springframework.util.StringUtils;
 import com.ocsc.poc.entity.Product;
 import com.ocsc.poc.model.ProductDetails;
 import com.ocsc.poc.repository.ProductRepository;
-import com.ocsc.poc.ulti.RecordNotFoundException;
 import com.ocsc.poc.ulti.TechnicalException;
 
 @Service
@@ -44,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 	public ProductDetails saveProduct(ProductDetails pd) {
 
 		if (pd.getProductId() != null && repository.findById(pd.getProductId()).isPresent()) {
-			throw new RecordNotFoundException("Product exists");
+			throw new RuntimeException("Product exists");
 		}
 		try {
 			Product product = new Product(pd.getProductId(), pd.getProductName(), pd.getCompany(), pd.getPrice(),
