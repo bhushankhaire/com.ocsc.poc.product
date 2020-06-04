@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ocsc.poc.model.GetProductDetails;
+import com.ocsc.poc.model.GetProductDetailsRequest;
 import com.ocsc.poc.model.ProductDetails;
 import com.ocsc.poc.service.ProductService;
 
@@ -36,7 +36,7 @@ public class ProductController {
 	}
 
 	@PostMapping(path = "/products/", produces = "application/json")
-	public List<ProductDetails> getProductDetails(@Valid @RequestBody GetProductDetails getProductDetails) {
+	public List<ProductDetails> getProductDetails(@Valid @RequestBody GetProductDetailsRequest getProductDetails) {
 
 		return productService.getProductDetailsByIds(getProductDetails);
 

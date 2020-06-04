@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class GetProductDetails {
+public class GetProductDetailsRequest {
 
 	@Getter
 	@Setter
