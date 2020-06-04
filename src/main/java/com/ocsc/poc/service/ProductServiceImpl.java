@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.ocsc.poc.entity.Product;
+import com.ocsc.poc.model.GetProductDetails;
 import com.ocsc.poc.model.ProductDetails;
 import com.ocsc.poc.repository.ProductRepository;
 import com.ocsc.poc.ulti.TechnicalException;
@@ -55,6 +56,16 @@ public class ProductServiceImpl implements ProductService {
 			throw new TechnicalException("Internal Server Error");
 		}
 		return pd;
+	}
+
+	@Override
+	public List<ProductDetails> getProductDetailsByIds(GetProductDetails getProductDetails) {
+		List<ProductDetails> productList = new ArrayList<>();
+		repository.findByProductIds(getProductDetails.getProductIdList()).forEach(e -> {
+			productList.add(new ProductDetails(e.getProductId(), e.getProductName(), e.getCompany(), e.getPrice(),
+					e.getPicByte()));
+		});
+		return productList;
 	}
 
 }
