@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service
+spec:
+  ports:
+  - name: "productservice"
+    #port accessible inside the cluster..if two pods wants to communicate with each other
+    port: 8081
+    protocol: TCP
+    #port to forward to inside the pod..
+    targetPort: 8080
+    #port accessible outside the cluster.
+    #nodePort: 30001
+  selector:
+    app: product-app
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-deployment
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-app
+  template:
+    metadata:
+      name: product-pod
+      labels:
+        app: product-app
+    spec:
+      containers:
+      - image: bhushapkhaire/com.ocsc.poc.product
+        name: product-api
+        ports: 
+          - containerPort: 8080
