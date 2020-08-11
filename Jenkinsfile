@@ -45,7 +45,7 @@ pipeline {
                 }
             } 
         }
-	stage('Deploy our image') { 
+	stage('Upload our image to OCIR') { 
             steps { 
                 script { 
                   	docker.withRegistry(registryUrl, registryCredential ) { 
@@ -62,5 +62,12 @@ pipeline {
                 sh "docker rmi $registry:$BUILD_NUMBER" 
             }
         } 
+	stage('Deploy to OKE') {
+         /* Deploy the image to OKE*/
+        steps {
+            /*sh "'sudo cp /var/lib/jenkins/workspace/deploy.sh /var/lib/jenkins/workspace/jenkins-oci_master'"*/
+            sh 'sh /var/lib/jenkins/workspace/com.ocsc.poc.user/deploy.sh'
+           }
+         }
     }
 }
