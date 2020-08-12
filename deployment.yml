@@ -28,7 +28,8 @@ spec:
         app: product-app
     spec:
       containers:
-      - image: bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.product:latest
+      - image: bom.ocir.io/yzguo69kabyn/bkhaire/com.ocsc.poc.product:BUILD_NUMBER
+        imagePullPolicy: Always
         name: product-api
         ports:
           - containerPort: 8080
